@@ -43,6 +43,8 @@ AvatarGlow(
     ),
   )
 ```
+# ⭐ Other Flutter Packages
+- [pie_chart](https://pub.dartlang.org/packages/pie_chart) - Flutter Pie Chart with cool animation.[![GitHub stars](https://img.shields.io/github/stars/apgapg/pie_chart.svg?style=social)](https://github.com/apgapg/pie_chart)
 
 # 👍 Contribution
 1. Fork it
