@@ -47,7 +47,6 @@ class _HomePageState extends State<HomePage> {
                     shape: CircleBorder(),
                     color: Colors.transparent,
                     child: CircleAvatar(
-
                       backgroundImage: AssetImage('assets/images/avatar.png'),
                       radius: 50.0,
                     ),
@@ -74,8 +73,9 @@ class _HomePageState extends State<HomePage> {
                       child: CircleAvatar(
                         backgroundColor: Colors.grey[100],
                         child: Image.asset(
-                          'assets/images/flutter.png', height: 60,),
-
+                          'assets/images/flutter.png',
+                          height: 60,
+                        ),
                         radius: 40.0,
                       ),
                     ),
@@ -92,9 +92,10 @@ class _HomePageState extends State<HomePage> {
                       shape: CircleBorder(),
                       child: CircleAvatar(
                         backgroundColor: Colors.grey[100],
-
                         child: Image.asset(
-                          'assets/images/love.png', height: 60,),
+                          'assets/images/love.png',
+                          height: 60,
+                        ),
                         radius: 40.0,
                       ),
                     ),
@@ -113,13 +114,14 @@ class _HomePageState extends State<HomePage> {
                   shape: CircleBorder(),
                   child: CircleAvatar(
                     backgroundColor: Colors.grey[100],
-
-                    child: Image.asset('assets/images/dart.png', height: 50,),
+                    child: Image.asset(
+                      'assets/images/dart.png',
+                      height: 50,
+                    ),
                     radius: 30.0,
                   ),
                 ),
               ),
-
             ],
           ),
         ),

@@ -35,20 +35,27 @@ class _AvatarGlowState extends State<AvatarGlow>
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(duration: widget.duration ?? Duration(milliseconds: 2000), vsync: this);
-    final Animation curve = CurvedAnimation(parent: controller, curve: Curves.decelerate);
-    smallDiscAnimation = Tween(begin: (widget.endRadius * 2) / 6, end: (widget.endRadius * 2) * (3 / 4)).animate(curve)
-      ..addListener(() {
-        setState(() {});
-      });
-    bigDiscAnimation = Tween(begin: 0.0, end: (widget.endRadius * 2)).animate(curve)
-      ..addListener(() {
-        setState(() {});
-      });
+    controller = AnimationController(
+        duration: widget.duration ?? Duration(milliseconds: 2000), vsync: this);
+    final Animation curve =
+        CurvedAnimation(parent: controller, curve: Curves.decelerate);
+    smallDiscAnimation = Tween(
+            begin: (widget.endRadius * 2) / 6,
+            end: (widget.endRadius * 2) * (3 / 4))
+        .animate(curve)
+          ..addListener(() {
+            setState(() {});
+          });
+    bigDiscAnimation =
+        Tween(begin: 0.0, end: (widget.endRadius * 2)).animate(curve)
+          ..addListener(() {
+            setState(() {});
+          });
     alphaAnimation = Tween(begin: 0.30, end: 0.0).animate(controller);
     controller.addStatusListener((_) async {
       if (controller.status == AnimationStatus.completed) {
-        await Future.delayed(widget.repeatPauseDuration ?? Duration(milliseconds: 100));
+        await Future.delayed(
+            widget.repeatPauseDuration ?? Duration(milliseconds: 100));
         controller.reset();
         controller.forward();
       }
@@ -76,7 +83,8 @@ class _AvatarGlowState extends State<AvatarGlow>
             child: SizedBox(),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: (widget.glowColor ?? Colors.white).withOpacity(alphaAnimation.value),
+              color: (widget.glowColor ?? Colors.white)
+                  .withOpacity(alphaAnimation.value),
             ),
           ),
           widget.showTwoGlows
@@ -86,7 +94,8 @@ class _AvatarGlowState extends State<AvatarGlow>
                   child: SizedBox(),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: (widget.glowColor ?? Colors.white).withOpacity(alphaAnimation.value),
+                    color: (widget.glowColor ?? Colors.white)
+                        .withOpacity(alphaAnimation.value),
                   ),
                 )
               : SizedBox(
@@ -99,5 +108,3 @@ class _AvatarGlowState extends State<AvatarGlow>
     );
   }
 }
-
-
