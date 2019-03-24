@@ -2,7 +2,7 @@ library avatar_glow;
 
 import 'package:flutter/material.dart';
 
-class AnimatedCircularGlow extends StatefulWidget {
+class AvatarGlow extends StatefulWidget {
   final bool repeat;
   final Duration duration;
   final double endRadius;
@@ -11,7 +11,7 @@ class AnimatedCircularGlow extends StatefulWidget {
   final bool showTwoGlows;
   final Color glowColor;
 
-  AnimatedCircularGlow({
+  AvatarGlow({
     @required this.endRadius,
     @required this.child,
     this.duration,
@@ -22,10 +22,11 @@ class AnimatedCircularGlow extends StatefulWidget {
   });
 
   @override
-  _AnimatedCircularGlowState createState() => _AnimatedCircularGlowState();
+  _AvatarGlowState createState() => _AvatarGlowState();
 }
 
-class _AnimatedCircularGlowState extends State<AnimatedCircularGlow> with SingleTickerProviderStateMixin {
+class _AvatarGlowState extends State<AvatarGlow>
+    with SingleTickerProviderStateMixin {
   Animation<double> smallDiscAnimation;
   Animation<double> bigDiscAnimation;
   Animation<double> alphaAnimation;
@@ -98,3 +99,5 @@ class _AnimatedCircularGlowState extends State<AnimatedCircularGlow> with Single
     );
   }
 }
+
+
