@@ -9,7 +9,7 @@ In the `dependencies:` section of your `pubspec.yaml`, add the following line:
 
 ```yaml
 dependencies:
-  pie_chart: <latest version>
+  avatar_glow: <latest version>
 ```
 
 # ❔ Usage
