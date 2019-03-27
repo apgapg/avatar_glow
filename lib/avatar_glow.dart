@@ -56,7 +56,7 @@ class _AvatarGlowState extends State<AvatarGlow>
       if (controller.status == AnimationStatus.completed) {
         await Future.delayed(
             widget.repeatPauseDuration ?? Duration(milliseconds: 100));
-        if (mounted) {
+        if (mounted && widget.repeat) {
           controller.reset();
           controller.forward();
         }
