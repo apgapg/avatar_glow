@@ -12,6 +12,7 @@ class AvatarGlow extends StatefulWidget {
   final Widget child;
   final bool showTwoGlows;
   final Color glowColor;
+  final Duration startDelay;
 
   AvatarGlow({
     @required this.endRadius,
@@ -21,6 +22,7 @@ class AvatarGlow extends StatefulWidget {
     this.repeatPauseDuration,
     this.showTwoGlows = true,
     this.glowColor,
+    this.startDelay,
   });
 
   @override
@@ -64,13 +66,16 @@ class _AvatarGlowState extends State<AvatarGlow>
         }
       }
     });
-    controller.forward();
+    startAnimation();
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
+  void startAnimation() async {
+    if (widget.startDelay != null) {
+      await Future.delayed(widget.startDelay);
+      if (mounted) controller.forward();
+    } else {
+      controller.forward();
+    }
   }
 
   @override
@@ -110,5 +115,11 @@ class _AvatarGlowState extends State<AvatarGlow>
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }
