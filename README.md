@@ -27,6 +27,7 @@ import 'package:avatar_glow/avatar_glow.dart';
 
 ```dart
 AvatarGlow(
+    startDelay: Duration(milliseconds: 1000),
     glowColor: Colors.blue,
     endRadius: 90.0,
     duration: Duration(milliseconds: 2000),
