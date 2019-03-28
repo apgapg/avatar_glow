@@ -1,5 +1,7 @@
 library avatar_glow;
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class AvatarGlow extends StatefulWidget {
