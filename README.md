@@ -1,4 +1,5 @@
-# Avatar Glow [![GitHub stars](https://img.shields.io/github/stars/apgapg/avatar_glow.svg?style=social)](https://github.com/apgapg/avatar_glow) [![Twitter Follow](https://img.shields.io/twitter/url/https/@ayushpgupta.svg?style=social)](https://twitter.com/ayushpgupta) ![GitHub last commit](https://img.shields.io/github/last-commit/apgapg/avatar_glow.svg) [![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://play.google.com/store/apps/details?id=com.coddu.flutterprofile)
+# Avatar Glow [![GitHub stars](https://img.shields.io/github/stars/apgapg/avatar_glow.svg?style=social)](https://github.com/apgapg/avatar_glow) [![Twitter Follow](https://img.shields.io/twitter/url/https/@ayushpgupta.svg?style=social)](https://twitter.com/ayushpgupta) ![GitHub last commit](https://img.shields.io/github/last-commit/apgapg/avatar_glow.svg) [![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://play.google.com/store/apps/details?id=com.coddu.flutterprofile)[![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/apgapg/avatar_glow)
+
 
 This Flutter package provides a Avatar Glow Widget with cool background glowing animation.
 
@@ -22,7 +23,7 @@ import 'package:avatar_glow/avatar_glow.dart';
 
 #### Usage is simple. Avatar Glow is a widget offering different customizable optional parameters with child displayed at its center.
 
-<img src="https://raw.githubusercontent.com/apgapg/avatar_glow/master/src/app.gif" align = "right" height = "400" alt="PieChart">
+<img src="https://raw.githubusercontent.com/apgapg/avatar_glow/master/src/app.gif"  height = "400" alt="PieChart">
 
 ```dart
 AvatarGlow(
