@@ -13,10 +13,12 @@ class AvatarGlow extends StatefulWidget {
   final bool showTwoGlows;
   final Color glowColor;
   final Duration startDelay;
+  final BoxShape shape;
 
   AvatarGlow({
     @required this.endRadius,
     @required this.child,
+    @required this.shape,
     this.duration,
     this.repeat = true,
     this.repeatPauseDuration,
@@ -91,7 +93,7 @@ class _AvatarGlowState extends State<AvatarGlow>
             width: bigDiscAnimation.value,
             child: SizedBox(),
             decoration: BoxDecoration(
-              shape: BoxShape.circle,
+              shape: widget.shape,
               color: (widget.glowColor ?? Colors.white)
                   .withOpacity(alphaAnimation.value),
             ),
@@ -102,7 +104,7 @@ class _AvatarGlowState extends State<AvatarGlow>
                   width: smallDiscAnimation.value,
                   child: SizedBox(),
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
+                    shape: widget.shape,
                     color: (widget.glowColor ?? Colors.white)
                         .withOpacity(alphaAnimation.value),
                   ),
