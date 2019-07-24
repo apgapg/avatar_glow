@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
                 width: double.infinity,
                 color: Color(0xff686de0),
                 child: AvatarGlow(
-                  startDelay:Duration(milliseconds: 1000),
+                  startDelay: Duration(milliseconds: 1000),
                   glowColor: Colors.white,
                   endRadius: 100.0,
                   duration: Duration(milliseconds: 2000),
