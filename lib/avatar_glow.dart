@@ -18,6 +18,7 @@ class AvatarGlow extends StatefulWidget {
   final Duration startDelay;
 
   const AvatarGlow({
+    Key key,
     @required this.child,
     @required this.endRadius,
     this.shape,
@@ -29,7 +30,7 @@ class AvatarGlow extends StatefulWidget {
     this.showTwoGlows = true,
     this.glowColor,
     this.startDelay,
-  });
+  }) : super(key: key);
 
   @override
   _AvatarGlowState createState() => _AvatarGlowState();
@@ -60,12 +61,20 @@ class _AvatarGlowState extends State<AvatarGlow>
 
   @override
   void didUpdateWidget(AvatarGlow oldWidget) {
-    _createAnimation();
+    // Fields which will trigger new animation values
+    if (widget.duration != oldWidget.duration ||
+        widget.curve != oldWidget.curve ||
+        widget.endRadius != oldWidget.endRadius) {
+      controller.duration = widget.duration;
+      _createAnimation();
+    }
 
-    if (widget.isAnimating) {
-      _startAnimation();
-    } else {
-      _stopAnimation();
+    if (widget.isAnimating != oldWidget.isAnimating) {
+      if (widget.isAnimating) {
+        _startAnimation();
+      } else {
+        _stopAnimation();
+      }
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -95,7 +104,7 @@ class _AvatarGlowState extends State<AvatarGlow>
         await Future.delayed(
             widget.repeatPauseDuration ?? Duration(milliseconds: 100));
 
-        if (mounted && widget.repeat) {
+        if (mounted && widget.repeat && widget.isAnimating) {
           controller.reset();
           controller.forward();
         }
@@ -122,6 +131,7 @@ class _AvatarGlowState extends State<AvatarGlow>
 
   void _stopAnimation() async {
     controller?.reset();
+    controller?.stop();
   }
 
   @override
