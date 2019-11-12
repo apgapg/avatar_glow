@@ -50,8 +50,9 @@ class _AvatarGlowState extends State<AvatarGlow>
       vsync: this,
     );
 
+    _createAnimation();
+
     if (widget.isAnimating) {
-      _createAnimation();
       _startAnimation();
     }
     super.initState();
