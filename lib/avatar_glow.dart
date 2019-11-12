@@ -10,7 +10,7 @@ class AvatarGlow extends StatefulWidget {
   final BoxShape shape;
   final Duration duration;
   final bool repeat;
-  final bool isAnimating;
+  final bool animate;
   final Duration repeatPauseDuration;
   final Curve curve;
   final bool showTwoGlows;
@@ -24,7 +24,7 @@ class AvatarGlow extends StatefulWidget {
     this.shape = BoxShape.circle,
     this.duration = const Duration(milliseconds: 2000),
     this.repeat = true,
-    this.isAnimating = true,
+    this.animate = true,
     this.repeatPauseDuration = const Duration(milliseconds: 100),
     this.curve = Curves.fastOutSlowIn,
     this.showTwoGlows = true,
@@ -53,7 +53,7 @@ class _AvatarGlowState extends State<AvatarGlow>
 
     _createAnimation();
 
-    if (widget.isAnimating) {
+    if (widget.animate) {
       _startAnimation();
     }
     super.initState();
@@ -69,8 +69,8 @@ class _AvatarGlowState extends State<AvatarGlow>
       _createAnimation();
     }
 
-    if (widget.isAnimating != oldWidget.isAnimating) {
-      if (widget.isAnimating) {
+    if (widget.animate != oldWidget.animate) {
+      if (widget.animate) {
         _startAnimation();
       } else {
         _stopAnimation();
@@ -103,7 +103,7 @@ class _AvatarGlowState extends State<AvatarGlow>
       if (controller.status == AnimationStatus.completed) {
         await Future.delayed(widget.repeatPauseDuration);
 
-        if (mounted && widget.repeat && widget.isAnimating) {
+        if (mounted && widget.repeat && widget.animate) {
           controller.reset();
           controller.forward();
         }
@@ -135,20 +135,16 @@ class _AvatarGlowState extends State<AvatarGlow>
 
   @override
   Widget build(BuildContext context) {
-    // AnimatedBuilder creates its own closure for some reason
-    // and widget.shape is not available inside its builder method
-    final shape = widget.shape;
-    final glowColor = widget.glowColor;
-
     return AnimatedBuilder(
       animation: alphaAnimation,
       child: widget.child,
       builder: (context, widgetChild) {
         final decoration = BoxDecoration(
-          shape: shape,
-          // If the user picks a curve that goes below 0,
-          // this opacity will have unexpected effects
-          color: glowColor.withOpacity(alphaAnimation.value.clamp(0.0, 1.0)),
+          shape: widget.shape,
+          // If the user picks a curve that goes below 0 or above 1
+          // this opacity will have unexpected effects without clamping
+          color: widget.glowColor
+              .withOpacity(alphaAnimation.value.clamp(0.0, 1.0)),
         );
 
         return Container(
@@ -161,7 +157,7 @@ class _AvatarGlowState extends State<AvatarGlow>
                 animation: bigDiscAnimation,
                 builder: (context, widget) {
                   // If the user picks a curve that goes below 0,
-                  // this will throw without clampping
+                  // this will throw without clamping
                   final size =
                       bigDiscAnimation.value.clamp(0.0, double.infinity);
 
