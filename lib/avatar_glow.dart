@@ -21,14 +21,14 @@ class AvatarGlow extends StatefulWidget {
     Key key,
     @required this.child,
     @required this.endRadius,
-    this.shape,
-    this.duration,
+    this.shape = BoxShape.circle,
+    this.duration = const Duration(milliseconds: 2000),
     this.repeat = true,
     this.isAnimating = true,
-    this.repeatPauseDuration,
+    this.repeatPauseDuration = const Duration(milliseconds: 100),
     this.curve = Curves.fastOutSlowIn,
     this.showTwoGlows = true,
-    this.glowColor,
+    this.glowColor = Colors.white,
     this.startDelay,
   }) : super(key: key);
 
@@ -47,7 +47,7 @@ class _AvatarGlowState extends State<AvatarGlow>
   @override
   void initState() {
     controller = AnimationController(
-      duration: widget.duration ?? Duration(milliseconds: 2000),
+      duration: widget.duration,
       vsync: this,
     );
 
@@ -101,8 +101,7 @@ class _AvatarGlowState extends State<AvatarGlow>
 
     listener = (_) async {
       if (controller.status == AnimationStatus.completed) {
-        await Future.delayed(
-            widget.repeatPauseDuration ?? Duration(milliseconds: 100));
+        await Future.delayed(widget.repeatPauseDuration);
 
         if (mounted && widget.repeat && widget.isAnimating) {
           controller.reset();
@@ -146,8 +145,10 @@ class _AvatarGlowState extends State<AvatarGlow>
       child: widget.child,
       builder: (context, widgetChild) {
         final decoration = BoxDecoration(
-          shape: shape ?? BoxShape.circle,
-          color: (glowColor ?? Colors.white).withOpacity(alphaAnimation.value),
+          shape: shape,
+          // If the user picks a curve that goes below 0,
+          // this opacity will have unexpected effects
+          color: glowColor.withOpacity(alphaAnimation.value.clamp(0.0, 1.0)),
         );
 
         return Container(
@@ -159,9 +160,14 @@ class _AvatarGlowState extends State<AvatarGlow>
               AnimatedBuilder(
                 animation: bigDiscAnimation,
                 builder: (context, widget) {
+                  // If the user picks a curve that goes below 0,
+                  // this will throw without clampping
+                  final size =
+                      bigDiscAnimation.value.clamp(0.0, double.infinity);
+
                   return Container(
-                    height: bigDiscAnimation.value,
-                    width: bigDiscAnimation.value,
+                    height: size,
+                    width: size,
                     decoration: decoration,
                   );
                 },
@@ -170,9 +176,12 @@ class _AvatarGlowState extends State<AvatarGlow>
                   ? AnimatedBuilder(
                       animation: smallDiscAnimation,
                       builder: (context, widget) {
+                        final size = smallDiscAnimation.value
+                            .clamp(0.0, double.infinity);
+
                         return Container(
-                          height: smallDiscAnimation.value,
-                          width: smallDiscAnimation.value,
+                          height: size,
+                          width: size,
                           decoration: decoration,
                         );
                       },
