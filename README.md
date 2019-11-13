@@ -44,6 +44,9 @@ AvatarGlow(
         shape: BoxShape.circle
       ),
     ),
+    shape: BoxShape.circle,
+    animate: true,
+    curve: Curves.fastOutSlowIn,
   )
 ```
 # ⭐ My Flutter Packages

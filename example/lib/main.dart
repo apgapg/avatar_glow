@@ -66,6 +66,9 @@ class _HomePageState extends State<HomePage> {
                       radius: 50.0,
                     ),
                   ),
+                  shape: BoxShape.circle,
+                  animate: true,
+                  curve: Curves.fastOutSlowIn,
                 ),
               ),
               SizedBox(
