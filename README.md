@@ -25,6 +25,25 @@ import 'package:avatar_glow/avatar_glow.dart';
 
 <img src="https://raw.githubusercontent.com/apgapg/avatar_glow/master/src/app.gif"  height = "400" alt="PieChart">
 
+
+### - Simple Implementation
+```dart
+AvatarGlow(
+    endRadius: 90.0,   //required
+    child: Material(   //required
+      elevation: 8.0,
+      shape: CircleBorder(),
+      child: CircleAvatar(
+        backgroundColor:Colors.grey[100] ,
+        child: Image.asset('assets/images/flutter.png',height: 60,),
+        radius: 40.0,
+        shape: BoxShape.circle
+      ),
+    ),
+  )
+```
+
+### - Full Implementation
 ```dart
 AvatarGlow(
     startDelay: Duration(milliseconds: 1000),
