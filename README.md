@@ -3,6 +3,8 @@
 
 This Flutter package provides a Avatar Glow Widget with cool background glowing animation.
 
+Live Demo: [https://apgapg.github.io/avatar_glow/](https://apgapg.github.io/avatar_glow/)
+
 # 💻 Installation
 In the `dependencies:` section of your `pubspec.yaml`, add the following line:
 
