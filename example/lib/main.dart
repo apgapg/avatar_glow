@@ -50,6 +50,25 @@ class _HomePageState extends State<HomePage> {
                 width: double.infinity,
                 color: Color(0xff686de0),
                 child: AvatarGlow(
+                  endRadius: 60.0,
+                  child: Material(
+                    elevation: 8.0,
+                    shape: CircleBorder(),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.grey[100],
+                      child: Image.asset(
+                        'assets/images/dart.png',
+                        height: 50,
+                      ),
+                      radius: 30.0,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                color: Color(0xff686de0),
+                child: AvatarGlow(
                   startDelay: Duration(milliseconds: 1000),
                   glowColor: Colors.white,
                   endRadius: 100.0,
