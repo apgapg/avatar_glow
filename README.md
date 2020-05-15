@@ -31,44 +31,44 @@ import 'package:avatar_glow/avatar_glow.dart';
 ### - Simple Implementation
 ```dart
 AvatarGlow(
-    endRadius: 90.0,   //required
-    child: Material(   //required
-      elevation: 8.0,
-      shape: CircleBorder(),
-      child: CircleAvatar(
-        backgroundColor:Colors.grey[100] ,
-        child: Image.asset('assets/images/flutter.png',height: 60,),
-        radius: 40.0,
-        shape: BoxShape.circle
-      ),
-    ),
-  )
+ endRadius: 60.0,
+ child: Material(
+   elevation: 8.0,
+   shape: CircleBorder(),
+   child: CircleAvatar(
+     backgroundColor: Colors.grey[100],
+     child: Image.asset(
+       'assets/images/dart.png',
+       height: 50,
+     ),
+     radius: 30.0,
+   ),
+ ),
+),
 ```
 
 ### - Full Implementation
 ```dart
 AvatarGlow(
-    startDelay: Duration(milliseconds: 1000),
-    glowColor: Colors.blue,
-    endRadius: 90.0,
-    duration: Duration(milliseconds: 2000),
-    repeat: true,
-    showTwoGlows: true,
-    repeatPauseDuration: Duration(milliseconds: 100),
-    child: Material(
-      elevation: 8.0,
-      shape: CircleBorder(),
-      child: CircleAvatar(
-        backgroundColor:Colors.grey[100] ,
-        child: Image.asset('assets/images/flutter.png',height: 60,),
-        radius: 40.0,
-        shape: BoxShape.circle
-      ),
-    ),
-    shape: BoxShape.circle,
-    animate: true,
-    curve: Curves.fastOutSlowIn,
-  )
+ glowColor: Colors.blue,
+ endRadius: 90.0,
+ duration: Duration(milliseconds: 2000),
+ repeat: true,
+ showTwoGlows: true,
+ repeatPauseDuration: Duration(milliseconds: 100),
+ child: Material(
+   elevation: 8.0,
+   shape: CircleBorder(),
+   child: CircleAvatar(
+     backgroundColor: Colors.grey[100],
+     child: Image.asset(
+       'assets/images/flutter.png',
+       height: 60,
+     ),
+     radius: 40.0,
+   ),
+ ),
+),
 ```
 # ⭐ My Flutter Packages
 - [json_table](https://pub.dartlang.org/packages/json_table)  [![GitHub stars](https://img.shields.io/github/stars/apgapg/json_table.svg?style=social)](https://github.com/apgapg/json_table)  Create Flutter Json Table from json map directly.
