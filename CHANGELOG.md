@@ -1,3 +1,6 @@
+## [1.2.0]
+- Fix README with updated code
+
 ## [1.1.0]
 ### Merged  
 - [#6](https://github.com/apgapg/avatar_glow/pull/6) Add 'animate', 'curve' option. Thanks [@Nolence](https://github.com/Nolence) for PR. Thanks [@Sahil](https://github.com/xsahil03x) for feedback.
