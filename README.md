@@ -23,7 +23,7 @@ dependencies:
 import 'package:avatar_glow/avatar_glow.dart';
 ```
 
-#### Usage is simple. Avatar Glow is a widget offering different customizable optional parameters with child displayed at its center.
+Usage is simple. Avatar Glow is a widget offering different customizable optional parameters with child displayed at its center.
 
 <img src="https://raw.githubusercontent.com/apgapg/avatar_glow/master/src/app.gif"  height = "400" alt="PieChart">
 
@@ -32,7 +32,7 @@ import 'package:avatar_glow/avatar_glow.dart';
 ```dart
 AvatarGlow(
  endRadius: 60.0,
- child: Material(
+ child: Material(     // Replace this child with your own
    elevation: 8.0,
    shape: CircleBorder(),
    child: CircleAvatar(
@@ -56,7 +56,7 @@ AvatarGlow(
  repeat: true,
  showTwoGlows: true,
  repeatPauseDuration: Duration(milliseconds: 100),
- child: Material(
+ child: Material(     // Replace this child with your own
    elevation: 8.0,
    shape: CircleBorder(),
    child: CircleAvatar(
