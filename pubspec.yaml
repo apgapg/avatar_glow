@@ -4,7 +4,6 @@ version: 1.2.0
 author: Ayush P Gupta <ayushpguptaapg@gmail.com>
 homepage: https://github.com/apgapg/avatar_glow
 
-
 environment:
   sdk: ">=2.1.0 <3.0.0"
 
