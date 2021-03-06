@@ -15,12 +15,12 @@ class AvatarGlow extends StatefulWidget {
   final Curve curve;
   final bool showTwoGlows;
   final Color glowColor;
-  final Duration startDelay;
+  final Duration? startDelay;
 
   const AvatarGlow({
-    Key key,
-    @required this.child,
-    @required this.endRadius,
+    Key? key,
+    required this.child,
+    required this.endRadius,
     this.shape = BoxShape.circle,
     this.duration = const Duration(milliseconds: 2000),
     this.repeat = true,
@@ -38,11 +38,11 @@ class AvatarGlow extends StatefulWidget {
 
 class _AvatarGlowState extends State<AvatarGlow>
     with SingleTickerProviderStateMixin {
-  Animation<double> smallDiscAnimation;
-  Animation<double> bigDiscAnimation;
-  Animation<double> alphaAnimation;
-  AnimationController controller;
-  void Function(AnimationStatus status) listener;
+  late Animation<double> smallDiscAnimation;
+  late Animation<double> bigDiscAnimation;
+  late Animation<double> alphaAnimation;
+  AnimationController? controller;
+  late void Function(AnimationStatus status) listener;
 
   @override
   void initState() {
@@ -65,7 +65,7 @@ class _AvatarGlowState extends State<AvatarGlow>
     if (widget.duration != oldWidget.duration ||
         widget.curve != oldWidget.curve ||
         widget.endRadius != oldWidget.endRadius) {
-      controller.duration = widget.duration;
+      controller!.duration = widget.duration;
       _createAnimation();
     }
 
@@ -81,50 +81,50 @@ class _AvatarGlowState extends State<AvatarGlow>
 
   void _createAnimation() {
     final Animation curve = CurvedAnimation(
-      parent: controller,
+      parent: controller!,
       curve: widget.curve,
     );
 
     smallDiscAnimation = Tween(
       begin: (widget.endRadius * 2) / 6,
       end: (widget.endRadius * 2) * (3 / 4),
-    ).animate(curve);
+    ).animate(curve as Animation<double>);
 
     bigDiscAnimation = Tween(
       begin: 0.0,
       end: (widget.endRadius * 2),
     ).animate(curve);
 
-    alphaAnimation = Tween(begin: 0.30, end: 0.0).animate(controller);
+    alphaAnimation = Tween(begin: 0.30, end: 0.0).animate(controller!);
 
-    controller.removeStatusListener(listener);
+    controller!.removeStatusListener(listener);
 
     listener = (_) async {
-      if (controller.status == AnimationStatus.completed) {
+      if (controller!.status == AnimationStatus.completed) {
         await Future.delayed(widget.repeatPauseDuration);
 
         if (mounted && widget.repeat && widget.animate) {
-          controller.reset();
-          controller.forward();
+          controller!.reset();
+          controller!.forward();
         }
       }
     };
 
-    controller.addStatusListener(listener);
+    controller!.addStatusListener(listener);
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
   void _startAnimation() async {
     if (widget.startDelay != null) {
-      await Future.delayed(widget.startDelay);
-      if (mounted) controller.forward();
+      await Future.delayed(widget.startDelay!);
+      if (mounted) controller!.forward();
     } else {
-      controller.forward();
+      controller!.forward();
     }
   }
 
@@ -158,12 +158,12 @@ class _AvatarGlowState extends State<AvatarGlow>
                 builder: (context, widget) {
                   // If the user picks a curve that goes below 0,
                   // this will throw without clamping
-                  final size =
+                  final num size =
                       bigDiscAnimation.value.clamp(0.0, double.infinity);
 
                   return Container(
-                    height: size,
-                    width: size,
+                    height: size as double?,
+                    width: size as double?,
                     decoration: decoration,
                   );
                 },
@@ -172,18 +172,18 @@ class _AvatarGlowState extends State<AvatarGlow>
                   ? AnimatedBuilder(
                       animation: smallDiscAnimation,
                       builder: (context, widget) {
-                        final size = smallDiscAnimation.value
+                        final num size = smallDiscAnimation.value
                             .clamp(0.0, double.infinity);
 
                         return Container(
-                          height: size,
-                          width: size,
+                          height: size as double?,
+                          width: size as double?,
                           decoration: decoration,
                         );
                       },
                     )
                   : const SizedBox(height: 0.0, width: 0.0),
-              widgetChild,
+              widgetChild!,
             ],
           ),
         );
