@@ -1,3 +1,10 @@
+## [2.0.0]
+- Migrate example to android v2
+- [Null Safety] Migrate package to support null safety
+- [Pubspec] Remove author
+- [Misc] Add linux desktop support
+- [Refactor] Remove redundant code and refactor
+
 ## [1.2.0]
 - Fix README with updated code
 
