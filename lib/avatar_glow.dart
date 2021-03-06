@@ -41,19 +41,30 @@ class _AvatarGlowState extends State<AvatarGlow>
   late Animation<double> smallDiscAnimation;
   late Animation<double> bigDiscAnimation;
   late Animation<double> alphaAnimation;
-  AnimationController? controller;
-  late void Function(AnimationStatus status) listener;
+
+  late final controller = AnimationController(
+    duration: widget.duration,
+    vsync: this,
+  );
+  late final curve = CurvedAnimation(
+    parent: controller,
+    curve: widget.curve,
+  );
+  late void Function(AnimationStatus status) listener = (_) async {
+    if (controller.status == AnimationStatus.completed) {
+      await Future.delayed(widget.repeatPauseDuration);
+
+      if (mounted && widget.repeat && widget.animate) {
+        controller.reset();
+        controller.forward();
+      }
+    }
+  };
 
   @override
   void initState() {
-    controller = AnimationController(
-      duration: widget.duration,
-      vsync: this,
-    );
-
-    _createAnimation();
-
     if (widget.animate) {
+      _createAnimation();
       _startAnimation();
     }
     super.initState();
@@ -65,7 +76,7 @@ class _AvatarGlowState extends State<AvatarGlow>
     if (widget.duration != oldWidget.duration ||
         widget.curve != oldWidget.curve ||
         widget.endRadius != oldWidget.endRadius) {
-      controller!.duration = widget.duration;
+      controller.duration = widget.duration;
       _createAnimation();
     }
 
@@ -80,57 +91,47 @@ class _AvatarGlowState extends State<AvatarGlow>
   }
 
   void _createAnimation() {
-    final Animation curve = CurvedAnimation(
-      parent: controller!,
-      curve: widget.curve,
-    );
-
     smallDiscAnimation = Tween(
       begin: (widget.endRadius * 2) / 6,
       end: (widget.endRadius * 2) * (3 / 4),
-    ).animate(curve as Animation<double>);
-
+    ).animate(curve);
     bigDiscAnimation = Tween(
       begin: 0.0,
       end: (widget.endRadius * 2),
     ).animate(curve);
-
-    alphaAnimation = Tween(begin: 0.30, end: 0.0).animate(controller!);
-
-    controller!.removeStatusListener(listener);
-
+    alphaAnimation = Tween(
+      begin: 0.30,
+      end: 0.0,
+    ).animate(
+      controller,
+    );
+    controller.removeStatusListener(listener);
     listener = (_) async {
-      if (controller!.status == AnimationStatus.completed) {
+      if (controller.status == AnimationStatus.completed) {
         await Future.delayed(widget.repeatPauseDuration);
 
         if (mounted && widget.repeat && widget.animate) {
-          controller!.reset();
-          controller!.forward();
+          controller.reset();
+          controller.forward();
         }
       }
     };
 
-    controller!.addStatusListener(listener);
-  }
-
-  @override
-  void dispose() {
-    controller!.dispose();
-    super.dispose();
+    controller.addStatusListener(listener);
   }
 
   void _startAnimation() async {
     if (widget.startDelay != null) {
       await Future.delayed(widget.startDelay!);
-      if (mounted) controller!.forward();
-    } else {
-      controller!.forward();
+    }
+    if (mounted) {
+      controller.forward();
     }
   }
 
   void _stopAnimation() async {
-    controller?.reset();
-    controller?.stop();
+    controller.reset();
+    controller.stop();
   }
 
   @override
@@ -143,10 +144,13 @@ class _AvatarGlowState extends State<AvatarGlow>
           shape: widget.shape,
           // If the user picks a curve that goes below 0 or above 1
           // this opacity will have unexpected effects without clamping
-          color: widget.glowColor
-              .withOpacity(alphaAnimation.value.clamp(0.0, 1.0)),
+          color: widget.glowColor.withOpacity(
+            alphaAnimation.value.clamp(
+              0.0,
+              1.0,
+            ),
+          ),
         );
-
         return Container(
           height: widget.endRadius * 2,
           width: widget.endRadius * 2,
@@ -158,9 +162,10 @@ class _AvatarGlowState extends State<AvatarGlow>
                 builder: (context, widget) {
                   // If the user picks a curve that goes below 0,
                   // this will throw without clamping
-                  final num size =
-                      bigDiscAnimation.value.clamp(0.0, double.infinity);
-
+                  final num size = bigDiscAnimation.value.clamp(
+                    0.0,
+                    double.infinity,
+                  );
                   return Container(
                     height: size as double?,
                     width: size as double?,
@@ -189,5 +194,11 @@ class _AvatarGlowState extends State<AvatarGlow>
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }

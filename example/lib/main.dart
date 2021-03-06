@@ -36,6 +36,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  double _radius = 70;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                 width: double.infinity,
                 color: Color(0xff686de0),
                 child: AvatarGlow(
-                  endRadius: 60.0,
+                  endRadius: _radius,
                   child: Material(
                     elevation: 8.0,
                     shape: CircleBorder(),
@@ -60,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                         'assets/images/dart.png',
                         height: 50,
                       ),
-                      radius: 30.0,
+                      radius: 30,
                     ),
                   ),
                 ),
@@ -162,6 +164,13 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            _radius = 150;
+          });
+        },
       ),
     );
   }
