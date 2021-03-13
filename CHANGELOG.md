@@ -1,3 +1,7 @@
+## [2.0.1]
+- Fix #17 thanks to [@nurassylive](@nurassylive)
+- Fix stop animation jank when `animate` is set to false
+
 ## [2.0.0]
 - Migrate example to android v2
 - [Null Safety] Migrate package to support null safety
