@@ -15,6 +15,15 @@ dependencies:
   avatar_glow: <latest version>
 ```
 
+To use the latest changes:
+
+```yaml
+  avatar_glow:
+    git:
+      url: https://github.com/apgapg/avatar_glow
+      ref: master
+```
+
 # ❔ Usage
 
 ### Import this class
