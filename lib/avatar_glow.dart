@@ -127,6 +127,7 @@ class _AvatarGlowState extends State<AvatarGlow>
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
+              widget.animate ?
               AnimatedBuilder(
                 animation: _bigDiscAnimation,
                 builder: (context, widget) {
@@ -142,23 +143,23 @@ class _AvatarGlowState extends State<AvatarGlow>
                     decoration: decoration,
                   );
                 },
-              ),
-              widget.showTwoGlows
+              ) : const SizedBox(height: 0.0, width: 0.0),
+              widget.animate && widget.showTwoGlows
                   ? AnimatedBuilder(
-                      animation: _smallDiscAnimation,
-                      builder: (context, widget) {
-                        final num size = _smallDiscAnimation.value.clamp(
-                          0.0,
-                          double.infinity,
-                        );
+                animation: _smallDiscAnimation,
+                builder: (context, widget) {
+                  final num size = _smallDiscAnimation.value.clamp(
+                    0.0,
+                    double.infinity,
+                  );
 
-                        return Container(
-                          height: size as double?,
-                          width: size as double?,
-                          decoration: decoration,
-                        );
-                      },
-                    )
+                  return Container(
+                    height: size as double?,
+                    width: size as double?,
+                    decoration: decoration,
+                  );
+                },
+              )
                   : const SizedBox(height: 0.0, width: 0.0),
               widgetChild!,
             ],
