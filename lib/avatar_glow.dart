@@ -38,36 +38,36 @@ class AvatarGlow extends StatefulWidget {
 
 class _AvatarGlowState extends State<AvatarGlow>
     with SingleTickerProviderStateMixin {
-  late final controller = AnimationController(
+  late final _controller = AnimationController(
     duration: widget.duration,
     vsync: this,
   );
   late final _curve = CurvedAnimation(
-    parent: controller,
+    parent: _controller,
     curve: widget.curve,
   );
-  late final Animation<double> _smallDiscAnimation = Tween(
+  late final _smallDiscAnimation = Tween(
     begin: (widget.endRadius * 2) / 6,
     end: (widget.endRadius * 2) * (3 / 4),
   ).animate(_curve);
-  late final Animation<double> _bigDiscAnimation = Tween(
+  late final _bigDiscAnimation = Tween(
     begin: 0.0,
-    end: (widget.endRadius * 2),
+    end: widget.endRadius * 2,
   ).animate(_curve);
-  late final Animation<double> _alphaAnimation = Tween(
+  late final _alphaAnimation = Tween(
     begin: 0.30,
     end: 0.0,
-  ).animate(controller);
+  ).animate(_controller);
 
-  late void Function(AnimationStatus status) _statusListener = (_) async {
-    if (controller.status == AnimationStatus.completed) {
+  Future<void> _statusListener(AnimationStatus status) async {
+    if (_controller.status == AnimationStatus.completed) {
       await Future.delayed(widget.repeatPauseDuration);
       if (mounted && widget.repeat && widget.animate) {
-        controller.reset();
-        controller.forward();
+        _controller.reset();
+        _controller.forward();
       }
     }
-  };
+  }
 
   @override
   void initState() {
@@ -89,19 +89,19 @@ class _AvatarGlowState extends State<AvatarGlow>
     super.didUpdateWidget(oldWidget);
   }
 
-  void _startAnimation() async {
-    controller.addStatusListener(_statusListener);
+  Future<void> _startAnimation() async {
+    _controller.addStatusListener(_statusListener);
     if (widget.startDelay != null) {
       await Future.delayed(widget.startDelay!);
     }
     if (mounted) {
-      controller.reset();
-      controller.forward();
+      _controller.reset();
+      _controller.forward();
     }
   }
 
-  void _stopAnimation() async {
-    controller.removeStatusListener(_statusListener);
+  Future<void> _stopAnimation() async {
+    _controller.removeStatusListener(_statusListener);
   }
 
   @override
@@ -109,58 +109,55 @@ class _AvatarGlowState extends State<AvatarGlow>
     return AnimatedBuilder(
       animation: _alphaAnimation,
       child: widget.child,
-      builder: (context, widgetChild) {
+      builder: (_, widgetChild) {
         final decoration = BoxDecoration(
           shape: widget.shape,
           // If the user picks a curve that goes below 0 or above 1
           // this opacity will have unexpected effects without clamping
           color: widget.glowColor.withOpacity(
-            _alphaAnimation.value.clamp(
-              0.0,
-              1.0,
-            ),
+            _alphaAnimation.value.clamp(0.0, 1.0),
           ),
         );
-        return Container(
+        return SizedBox(
           height: widget.endRadius * 2,
           width: widget.endRadius * 2,
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
-              widget.animate ?
-              AnimatedBuilder(
-                animation: _bigDiscAnimation,
-                builder: (context, widget) {
-                  // If the user picks a curve that goes below 0,
-                  // this will throw without clamping
-                  final num size = _bigDiscAnimation.value.clamp(
-                    0.0,
-                    double.infinity,
-                  );
-                  return Container(
-                    height: size as double?,
-                    width: size as double?,
-                    decoration: decoration,
-                  );
-                },
-              ) : const SizedBox(height: 0.0, width: 0.0),
-              widget.animate && widget.showTwoGlows
-                  ? AnimatedBuilder(
-                animation: _smallDiscAnimation,
-                builder: (context, widget) {
-                  final num size = _smallDiscAnimation.value.clamp(
-                    0.0,
-                    double.infinity,
-                  );
+              if (widget.animate)
+                AnimatedBuilder(
+                  animation: _bigDiscAnimation,
+                  builder: (_, __) {
+                    // If the user picks a curve that goes below 0,
+                    // this will throw without clamping
+                    final _size =
+                        _bigDiscAnimation.value.clamp(0.0, double.infinity);
 
-                  return Container(
-                    height: size as double?,
-                    width: size as double?,
-                    decoration: decoration,
-                  );
-                },
-              )
-                  : const SizedBox(height: 0.0, width: 0.0),
+                    return Container(
+                      height: _size,
+                      width: _size,
+                      decoration: decoration,
+                    );
+                  },
+                )
+              else
+                const SizedBox(height: 0.0, width: 0.0),
+              if (widget.animate && widget.showTwoGlows)
+                AnimatedBuilder(
+                  animation: _smallDiscAnimation,
+                  builder: (_, __) {
+                    final _size =
+                        _smallDiscAnimation.value.clamp(0.0, double.infinity);
+
+                    return Container(
+                      height: _size,
+                      width: _size,
+                      decoration: decoration,
+                    );
+                  },
+                )
+              else
+                const SizedBox(height: 0.0, width: 0.0),
               widgetChild!,
             ],
           ),
@@ -171,7 +168,7 @@ class _AvatarGlowState extends State<AvatarGlow>
 
   @override
   void dispose() {
-    controller.dispose();
+    _controller.dispose();
     super.dispose();
   }
 }
