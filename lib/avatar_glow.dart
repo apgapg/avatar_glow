@@ -59,15 +59,18 @@ class _AvatarGlowState extends State<AvatarGlow>
     end: 0.0,
   ).animate(_controller);
 
-  Future<void> _statusListener(AnimationStatus status) async {
-    if (_controller.status == AnimationStatus.completed) {
-      await Future.delayed(widget.repeatPauseDuration);
-      if (mounted && widget.repeat && widget.animate) {
-        _controller.reset();
-        _controller.forward();
-      }
+  late Timer _repeatPauseTimer;
+
+  late void Function(AnimationStatus status) _statusListener = (_) async {
+    if (controller.status == AnimationStatus.completed) {
+      _repeatPauseTimer = Timer(widget.repeatPauseDuration, () {
+        if (mounted && widget.repeat && widget.animate) {
+          controller.reset();
+          controller.forward();
+        }
+      });
     }
-  }
+  };
 
   @override
   void initState() {
@@ -168,6 +171,7 @@ class _AvatarGlowState extends State<AvatarGlow>
 
   @override
   void dispose() {
+    _repeatPauseTimer.cancel();
     _controller.dispose();
     super.dispose();
   }
