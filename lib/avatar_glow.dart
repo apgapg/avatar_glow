@@ -61,7 +61,7 @@ class _AvatarGlowState extends State<AvatarGlow>
 
   Timer? _repeatPauseTimer;
 
-  late void Function(AnimationStatus status) _statusListener = (_) async {
+  void _statusListener(AnimationStatus status) {
     if (controller.status == AnimationStatus.completed) {
       _repeatPauseTimer = Timer(widget.repeatPauseDuration, () {
         if (mounted && widget.repeat && widget.animate) {
@@ -70,7 +70,7 @@ class _AvatarGlowState extends State<AvatarGlow>
         }
       });
     }
-  };
+  }
 
   @override
   void initState() {
