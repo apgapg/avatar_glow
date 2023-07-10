@@ -1,3 +1,10 @@
+
+
+## [2.0.2+1]
+
+- Upgrade example to Flutter 3.0
+
+
 ## [2.0.2]
 
 - Hide circle if animate false (#21)

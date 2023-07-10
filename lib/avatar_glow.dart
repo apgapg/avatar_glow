@@ -70,7 +70,7 @@ class _AvatarGlowState extends State<AvatarGlow>
         }
       });
     }
-  };
+  }
 
   @override
   void initState() {

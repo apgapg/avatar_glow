@@ -1,19 +1,7 @@
-import 'dart:io';
-
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-// Sets a platform override for desktop to avoid exceptions. See
-// https://flutter.dev/desktop#target-platform-override for more info.
-void _enablePlatformOverrideForDesktop() {
-  if (!kIsWeb && (Platform.isMacOS || Platform.isWindows || Platform.isLinux)) {
-    debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
-  }
-}
-
 void main() {
-  _enablePlatformOverrideForDesktop();
   runApp(MyApp());
 }
 
@@ -99,26 +87,29 @@ class _HomePageState extends State<HomePage> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                AvatarGlow(
-                  glowColor: Colors.blue,
-                  endRadius: 90.0,
-                  duration: Duration(milliseconds: 2000),
-                  repeat: true,
-                  showTwoGlows: true,
-                  repeatPauseDuration: Duration(milliseconds: 100),
-                  child: Material(
-                    elevation: 8.0,
-                    shape: CircleBorder(),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.grey[100],
-                      child: Image.asset(
-                        'assets/images/flutter.png',
-                        height: 60,
+                Container(
+                    width: 100,
+                    height: 100,
+                    child: AvatarGlow(
+                      glowColor: Colors.red,
+                      endRadius: 90.0,
+                      duration: Duration(milliseconds: 2000),
+                      repeat: true,
+                      showTwoGlows: true,
+                      repeatPauseDuration: Duration(milliseconds: 100),
+                      child: Material(
+                        elevation: 8.0,
+                        shape: CircleBorder(),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.grey[100],
+                          child: Image.asset(
+                            'assets/images/flutter.png',
+                            height: 60,
+                          ),
+                          radius: 40.0,
+                        ),
                       ),
-                      radius: 40.0,
-                    ),
-                  ),
-                ),
+                    )),
                 AvatarGlow(
                   glowColor: Colors.red,
                   endRadius: 90.0,
