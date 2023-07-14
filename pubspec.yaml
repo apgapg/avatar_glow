@@ -21,4 +21,8 @@ topics:
   - custom-widget
   - ripple-effect
   - sound-wave
-  - animation
+  - avatar
+
+screenshots:
+  - description: 'Package Demo'
+    path: src/app.gif
