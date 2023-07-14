@@ -1,14 +1,15 @@
+## 3.0.0
 
+- TODO: Update Changelog.
 
 ## [2.0.2+1]
 
 - Upgrade example to Flutter 3.0
 
-
 ## [2.0.2]
 
 - Hide circle if animate false (#21)
-- 
+
 ## [2.0.1]
 
 - Fix #17 thanks to [@nurassylive](@nurassylive)
