@@ -1,6 +1,16 @@
-## 3.0.0
+# Change Log
 
-- TODO: Update Changelog.
+Official Changelog for different addition, changes, modifications.
+
+## [3.0.1]
+
+- chore(misc): update README.md (Ayush P Gupta)
+- chore(misc): upgrade package lock (Ayush P Gupta)
+- refactor!: v3.0.0 (#34) (Sahil Kumar)
+- feat: upgrade example to Flutter 3.0 (#33) (BradInTheUSA)
+- fix: late timer issue (#28) (jakeBrightHR)
+- Fix timer issue in unit tests (#27) (jakeBrightHR)
+- refactor: follow linting rules by Lint package (#26) (Yousef Almutairi)
 
 ## [2.0.2+1]
 
