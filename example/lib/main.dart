@@ -118,6 +118,7 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 32.0),
           AvatarGlow(
             animate: _animate,
+            glowRepeatCount: 5,
             glowColor: Colors.cyan,
             child: Material(
               elevation: 8.0,

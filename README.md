@@ -64,6 +64,7 @@ AvatarGlow(
   glowShape: BoxShape.circle,
   animate: _animate,
   curve: Curves.fastOutSlowIn,
+  glowRepeatCount: 5   // Animation will be repeated 5 times
   child: const Material(
     elevation: 8.0,
     shape: CircleBorder(),

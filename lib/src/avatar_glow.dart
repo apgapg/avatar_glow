@@ -19,6 +19,7 @@ class AvatarGlow extends StatefulWidget {
     this.repeat = true,
     this.curve = Curves.fastOutSlowIn,
     this.glowRadiusFactor = 0.7,
+    this.glowRepeatCount = -1
   })  : assert(
           glowShape != BoxShape.circle || glowBorderRadius == null,
           'Cannot specify a border radius if the shape is a circle.',
@@ -58,6 +59,9 @@ class AvatarGlow extends StatefulWidget {
   /// The factor that determines the size of each glow effect relative to the original size.
   final double glowRadiusFactor;
 
+  /// Number of times glowing animation should be repeated
+  final int glowRepeatCount;
+
   @override
   State<AvatarGlow> createState() => _AvatarGlowState();
 }
@@ -76,11 +80,24 @@ class _AvatarGlowState extends State<AvatarGlow>
 
     // Check if the widget is still mounted before starting the animation.
     if (mounted) {
-      if (widget.repeat) {
-        _controller.repeat();
+      if (widget.glowRepeatCount > 0) {
+        TickerFuture tickerFuture = _controller.repeat();
+        tickerFuture.timeout(widget.duration * widget.glowRepeatCount,
+            onTimeout: () {
+          _controller.forward(from: 0);
+          _controller.stop(canceled: true);
+        });
       } else {
-        _controller.forward();
+        _manageController();
       }
+    }
+  }
+
+  void _manageController() {
+    if (widget.repeat) {
+      _controller.repeat();
+    } else {
+      _controller.forward();
     }
   }
 
@@ -125,11 +142,7 @@ class _AvatarGlowState extends State<AvatarGlow>
     }
 
     if (widget.repeat != oldWidget.repeat) {
-      if (widget.repeat) {
-        _controller.repeat();
-      } else {
-        _controller.forward();
-      }
+      _manageController();
     }
   }
 
